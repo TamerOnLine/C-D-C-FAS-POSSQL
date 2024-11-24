@@ -1,0 +1,38 @@
+name: CI
+true:
+  push:
+    branches:
+    - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+        image: postgres:15
+        ports:
+        - 5432:5432
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - env:
+        PIP_CACHE_DIR: ./.pip-cache
+      name: Install Dependencies
+      run: 'pip install --upgrade pip
+
+        pip install -r app/requirements.txt
+
+        '
+    - env:
+        DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      name: Run Tests
+      run: 'pytest
+
+        '

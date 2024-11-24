@@ -1,0 +1,8 @@
+# Python-specific
+__pycache__/
+*.pyc
+*.pyo
+
+# Docker-specific
+*.env
+db_data/
