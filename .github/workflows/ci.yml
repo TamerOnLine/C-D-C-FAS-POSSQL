@@ -1,38 +1,48 @@
 name: CI
-true:
+
+on:
   push:
     branches:
-    - main
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
+        image: postgres:15
         env:
           POSTGRES_DB: test_db
-          POSTGRES_PASSWORD: password
           POSTGRES_USER: postgres
-        image: postgres:15
+          POSTGRES_PASSWORD: password
         ports:
-        - 5432:5432
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d test_db"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.10'
-    - env:
-        PIP_CACHE_DIR: ./.pip-cache
-      name: Install Dependencies
-      run: 'pip install --upgrade pip
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-        pip install -r app/requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
 
-        '
-    - env:
-        DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      name: Run Tests
-      run: 'pytest
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r app/requirements.txt
 
-        '
+      - name: Run Tests
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/test_db
+        run: |
+          pytest
