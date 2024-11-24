@@ -9,6 +9,10 @@ from pydantic import BaseModel
 # Initialize FastAPI
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to FastAPI app with Docker"}
+    
 # Load environment variables
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
