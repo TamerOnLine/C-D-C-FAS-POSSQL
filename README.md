@@ -1,121 +1,68 @@
+
 # Scalable FastAPI Application with Docker and PostgreSQL Integration
 
-**A FastAPI project integrated with Docker and PostgreSQL for seamless deployment and efficient API development.**
+## Overview
+This project demonstrates a scalable API solution using FastAPI, Docker, and PostgreSQL. It includes CI/CD integration via GitHub Actions to ensure code quality and smooth deployments.
 
----
-
-## 🚀 Features
-- **FastAPI**: A modern web framework for building APIs with Python.
-- **PostgreSQL**: A robust and reliable database system.
-- **Docker & Docker Compose**: Simplifies containerization and orchestration.
-- **Healthcheck Integration**: Ensures services are running and dependencies are healthy.
-- **Easy Setup**: Start the project with minimal configuration.
-
----
-
-## 📦 Project Structure
-
-```
+## Project Structure
+```plaintext
 mystrotamer-FastAPI-Docker/
 ├── app/
-│   ├── main.py              # FastAPI main application file
-│   ├── Dockerfile           # Docker configuration for the app
-│   ├── requirements.txt     # Python dependencies
-├── docker-compose.yml       # Docker Compose configuration
-├── .env.example             # Example environment variables
-├── README.md                # Project documentation
-└── LICENSE                  # Project license
+│   ├── __init__.py         # Initialize the app module
+│   ├── main.py             # FastAPI main application file
+│   ├── Dockerfile          # Docker configuration for the app
+│   ├── requirements.txt    # Python dependencies
+│   ├── wait-for-it.sh      # Script to wait for dependencies
+├── db/
+│   ├── init.sql            # SQL script for database initialization
+│   ├── Dockerfile          # Docker configuration for the database
+├── tests/
+│   ├── __init__.py         # Initialize the tests module
+│   ├── test_main.py        # Test cases for the main app
+├── docker-compose.yml      # Docker Compose configuration
+├── .env.example            # Example environment variables
+├── LICENSE                 # Project license
+└── README.md               # Project documentation
 ```
 
----
+## Technologies Used
+- **FastAPI**: For building modern and fast APIs.
+- **Docker & Docker Compose**: To simplify deployment and runtime environment using containers.
+- **PostgreSQL**: A robust relational database system.
+- **GitHub Actions**: For CI/CD automation.
 
-## 🛠️ Setup and Installation
-
-### **Prerequisites**
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- Git
-
----
-
-### **Steps**
-
-1. **Clone the repository:**
+## Setup and Installation
+1. Clone this repository:
    ```bash
-   git clone https://github.com/mystrotamer/mystrotamer-FastAPI-Docker.git
-   cd mystrotamer-FastAPI-Docker
+   git clone https://github.com/TamerOnLine/MystroTamer-FastAPI-Docker.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd MystroTamer-FastAPI-Docker
+   ```
+3. Copy the `.env.example` file to `.env` and update the environment variables as needed.
+
+4. Start the services using Docker Compose:
+   ```bash
+   docker-compose up --build
    ```
 
-2. **Copy the environment file and set the variables:**
-   ```bash
-   cp .env.example .env
-   ```
+5. Access the application at `http://localhost:8000`.
 
-3. **Start the services:**
-   ```bash
-   docker-compose up -d
-   ```
-
-4. **Access the application:**
-   - API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
-   - Application: [http://localhost:8000](http://localhost:8000)
-
----
-
-## 🗄️ Environment Variables
-
-Ensure you configure the `.env` file before starting the project:
-
-```env
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=your_password
-POSTGRES_DB=fastapi_db
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-DATABASE_URL=postgresql://postgres:your_password@db:5432/fastapi_db
+## Running Tests
+Run the following command to execute the tests:
+```bash
+pytest tests/
 ```
 
----
+## Future Improvements
+- Add Redis for caching.
+- Integrate user authentication and authorization.
+- Deploy the application on a cloud platform like AWS or Azure.
 
-## 📋 API Endpoints
+## 🤝 Contributing
+- Open an issue if you encounter bugs or have suggestions.
+- Submit a pull request for any improvements or new features.
 
-| Endpoint       | Method | Description             |
-|----------------|--------|-------------------------|
-| `/items`       | GET    | Retrieve all items      |
-| `/items`       | POST   | Add a new item          |
-| `/items/{id}`  | GET    | Retrieve an item by ID  |
-| `/items/{id}`  | PUT    | Update an item by ID    |
-| `/items/{id}`  | DELETE | Delete an item by ID    |
-
----
-
-## 🛡️ License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Author
-
-- **Mystro Tamer**  
-  - [GitHub](https://github.com/mystrotamer)  
-  - [Website](https://www.mystrotamer.com)
-
----
-
-## ⭐ Contribute
-
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
----
-
-## 🛠️ CI/CD
-
-This project uses **GitHub Actions** to automate testing and deployment. The workflow file is located in `.github/workflows/ci.yml`.
-
----
-
-## 📈 Future Improvements
-- Add caching with **Redis** for faster response times.
-- Deploy the project to a cloud provider like AWS or GCP.
-- Implement user authentication and authorization.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
