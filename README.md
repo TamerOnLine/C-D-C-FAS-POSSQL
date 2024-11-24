@@ -1,4 +1,4 @@
-# mystrotamer-FastAPI-Docker
+# Scalable FastAPI Application with Docker and PostgreSQL Integration
 
 **A FastAPI project integrated with Docker and PostgreSQL for seamless deployment and efficient API development.**
 
